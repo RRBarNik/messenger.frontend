@@ -1,0 +1,36 @@
+.header {
+    grid-area: h;
+    background: #FFFCF5;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerLogo {
+    text-align: left;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 39px;
+    margin-left: 20px;
+}
+
+.headerMenu {
+    margin-right: 20px;
+    margin-top: 3px;
+    height: 24px;
+}
+
+.headerMenuInner {
+    border-radius: 5px;
+}
+
+.header img {
+    width: 40px;
+}

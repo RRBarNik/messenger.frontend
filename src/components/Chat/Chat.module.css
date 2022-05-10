@@ -1,0 +1,12 @@
+.container {
+    background: #FFFCF5;
+    margin-top: -5px;
+    border-radius: 10px;
+
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+}
+
+.messages {
+    bottom: 0;
+}

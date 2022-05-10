@@ -1,0 +1,17 @@
+.nav {
+    grid-area: n;
+    background: #FFFCF5;
+    margin-top: 5px;
+    border-radius: 10px;
+
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+}
+
+.item {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 39px;
+}

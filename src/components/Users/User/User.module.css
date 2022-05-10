@@ -1,0 +1,20 @@
+.userWrapper {
+    display: grid;
+    grid-template-areas:
+        "image info";
+    grid-template-columns: 1fr 9fr;
+
+    margin: 10px 5px;
+    padding: 4px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.userImage {
+    grid-area: image;
+}
+
+.userInfo {
+    grid-area: info;
+}
