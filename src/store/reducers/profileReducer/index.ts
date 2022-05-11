@@ -10,10 +10,10 @@ interface ProfileState {
 }
 
 enum ProfileActionTypes {
-    FETCH_USER_PROFILE = 'FETCH_USER_PROFILE',
-    FETCH_USER_PROFILE_SUCCESS = 'FETCH_USER_PROFILE_SUCCESS',
-    FETCH_USER_PROFILE_ERROR = 'FETCH_USER_PROFILE_ERROR',
-    SET_STATUS = 'SET_STATUS'
+    FETCH_USER_PROFILE = "messenger/profile/FETCH_USER_PROFILE",
+    FETCH_USER_PROFILE_SUCCESS = "messenger/profile/FETCH_USER_PROFILE_SUCCESS",
+    FETCH_USER_PROFILE_ERROR = "messenger/profile/FETCH_USER_PROFILE_ERROR",
+    SET_STATUS = "messenger/profile/SET_STATUS"
 }
 
 interface FetchUserProfileAction {

@@ -9,10 +9,10 @@ interface AuthState extends ProfileDataType {
 }
 
 enum AuthActionTypes {
-    FETCH_AUTH_USER_DATA = 'messenger/auth/FETCH_AUTH_USER_DATA',
-    FETCH_AUTH_USER_DATA_SUCCESS = 'messenger/auth/FETCH_AUTH_USER_DATA_SUCCESS',
-    FETCH_AUTH_USER_DATA_ERROR = 'messenger/auth/FETCH_AUTH_USER_DATA_ERROR',
-    GET_CAPTCHA_URL_SUCCESS = 'messenger/auth/GET_CAPTCHA_URL_SUCCESS'
+    FETCH_AUTH_USER_DATA = "messenger/auth/FETCH_AUTH_USER_DATA",
+    FETCH_AUTH_USER_DATA_SUCCESS = "messenger/auth/FETCH_AUTH_USER_DATA_SUCCESS",
+    FETCH_AUTH_USER_DATA_ERROR = "messenger/auth/FETCH_AUTH_USER_DATA_ERROR",
+    GET_CAPTCHA_URL_SUCCESS = "messenger/auth/GET_CAPTCHA_URL_SUCCESS"
 }
 
 interface FetchAuthUserDataAction {

@@ -10,9 +10,9 @@ export interface ChatState {
 }
 
 export enum ChatActionTypes {
-    FETCH_CHATS = "FETCH_CHATS",
-    FETCH_CHATS_SUCCESS = "FETCH_CHATS_SUCCESS",
-    FETCH_CHATS_ERROR = "FETCH_CHATS_ERROR",
+    FETCH_CHATS = "messenger/chat/FETCH_CHATS",
+    FETCH_CHATS_SUCCESS = "messenger/chat/FETCH_CHATS_SUCCESS",
+    FETCH_CHATS_ERROR = "messenger/chat/FETCH_CHATS_ERROR",
 }
 
 interface FetchChatsAction {

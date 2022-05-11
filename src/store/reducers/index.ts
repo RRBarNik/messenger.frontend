@@ -5,7 +5,7 @@ import { profileReducer } from "./profileReducer/index";
 import { chatReducer } from "./chatReducer/index";
 import { messageReducer } from "./messageReducer/index";
 
-export const rootReducer = combineReducers({
+export const rootReducers = combineReducers({
     message: messageReducer,
     chat: chatReducer,
     profile: profileReducer,
@@ -13,5 +13,15 @@ export const rootReducer = combineReducers({
     user: userReducer,
 })
 
-type RootReducerType = typeof rootReducer
+export const configureReducer = (reducers = {}) =>
+    combineReducers({
+        message: messageReducer,
+        chat: chatReducer,
+        profile: profileReducer,
+        auth: authReducer,
+        user: userReducer,
+        ...reducers
+    })
+
+type RootReducerType = typeof rootReducers
 export type AppStateType = ReturnType<RootReducerType>

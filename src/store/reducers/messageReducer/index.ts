@@ -11,9 +11,9 @@ interface MessageState {
 }
 
 enum MessageActionTypes {
-    FETCH_MESSAGES = "FETCH_MESSAGES",
-    FETCH_MESSAGES_SUCCESS = "FETCH_MESSAGES_SUCCESS",
-    FETCH_MESSAGES_ERROR = "FETCH_MESSAGES_ERROR",
+    FETCH_MESSAGES = "messenger/message/FETCH_MESSAGES",
+    FETCH_MESSAGES_SUCCESS = "messenger/message/FETCH_MESSAGES_SUCCESS",
+    FETCH_MESSAGES_ERROR = "messenger/message/FETCH_MESSAGES_ERROR",
 }
 
 interface FetchMessagesAction {
