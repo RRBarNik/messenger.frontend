@@ -11,9 +11,9 @@ interface MessageState {
 }
 
 enum MessageActionTypes {
-    FETCH_MESSAGES = "FETCH_MESSAGES",
-    FETCH_MESSAGES_SUCCESS = "FETCH_MESSAGES_SUCCESS",
-    FETCH_MESSAGES_ERROR = "FETCH_MESSAGES_ERROR",
+    FETCH_MESSAGES = "messenger/message/FETCH_MESSAGES",
+    FETCH_MESSAGES_SUCCESS = "messenger/message/FETCH_MESSAGES_SUCCESS",
+    FETCH_MESSAGES_ERROR = "messenger/message/FETCH_MESSAGES_ERROR",
 }
 
 interface FetchMessagesAction {
@@ -73,11 +73,11 @@ export const messageReducer = (state = initialState, action: MessageAction): Mes
     }
 }
 
-export const FetchMessages = (): FetchMessagesAction => ({
+export const FetchMessages = (): MessageAction => ({
     type: MessageActionTypes.FETCH_MESSAGES
 })
 
-export const FetchMessagesSuccess = (messages: MessageType[], chatId: string | undefined): FetchMessagesSuccessAction => ({
+export const FetchMessagesSuccess = (messages: MessageType[], chatId: string | undefined): MessageAction => ({
     type: MessageActionTypes.FETCH_MESSAGES_SUCCESS,
     payload: {
         messages,
@@ -85,7 +85,7 @@ export const FetchMessagesSuccess = (messages: MessageType[], chatId: string | u
     }
 })
 
-export const FetchMessagesError = (error: string): FetchMessagesErrorAction => ({
+export const FetchMessagesError = (error: string): MessageAction => ({
     type: MessageActionTypes.FETCH_MESSAGES_ERROR,
     payload: error
 })

@@ -10,10 +10,10 @@ interface ProfileState {
 }
 
 enum ProfileActionTypes {
-    FETCH_USER_PROFILE = 'FETCH_USER_PROFILE',
-    FETCH_USER_PROFILE_SUCCESS = 'FETCH_USER_PROFILE_SUCCESS',
-    FETCH_USER_PROFILE_ERROR = 'FETCH_USER_PROFILE_ERROR',
-    SET_STATUS = 'SET_STATUS'
+    FETCH_USER_PROFILE = "messenger/profile/FETCH_USER_PROFILE",
+    FETCH_USER_PROFILE_SUCCESS = "messenger/profile/FETCH_USER_PROFILE_SUCCESS",
+    FETCH_USER_PROFILE_ERROR = "messenger/profile/FETCH_USER_PROFILE_ERROR",
+    SET_STATUS = "messenger/profile/SET_STATUS"
 }
 
 interface FetchUserProfileAction {
@@ -93,16 +93,16 @@ export const profileReducer = (state = initialState, action: ProfileAction): Pro
     }
 }
 
-export const FetchUserProfile = (): FetchUserProfileAction => ({
+export const FetchUserProfile = (): ProfileAction => ({
     type: ProfileActionTypes.FETCH_USER_PROFILE
 })
 
-export const FetchUserProfileSuccess = (profileData: ProfileDataType): FetchUserProfileSuccessAction => ({
+export const FetchUserProfileSuccess = (profileData: ProfileDataType): ProfileAction => ({
     type: ProfileActionTypes.FETCH_USER_PROFILE_SUCCESS,
     payload: profileData
 })
 
-export const FetchUserProfileError = (error: string): FetchUserProfileErrorAction => ({
+export const FetchUserProfileError = (error: string): ProfileAction => ({
     type: ProfileActionTypes.FETCH_USER_PROFILE_ERROR,
     payload: error
 })

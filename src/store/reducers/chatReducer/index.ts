@@ -10,9 +10,9 @@ export interface ChatState {
 }
 
 export enum ChatActionTypes {
-    FETCH_CHATS = "FETCH_CHATS",
-    FETCH_CHATS_SUCCESS = "FETCH_CHATS_SUCCESS",
-    FETCH_CHATS_ERROR = "FETCH_CHATS_ERROR",
+    FETCH_CHATS = "messenger/chat/FETCH_CHATS",
+    FETCH_CHATS_SUCCESS = "messenger/chat/FETCH_CHATS_SUCCESS",
+    FETCH_CHATS_ERROR = "messenger/chat/FETCH_CHATS_ERROR",
 }
 
 interface FetchChatsAction {
@@ -65,16 +65,16 @@ export const chatReducer = (state = initialState, action: ChatAction): ChatState
     }
 }
 
-export const FetchUsers = (): FetchChatsAction => ({
+export const FetchUsers = (): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS
 })
 
-export const FetchUsersSuccess = (users: ChatType[]): FetchChatsSuccessAction => ({
+export const FetchUsersSuccess = (users: ChatType[]): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS_SUCCESS,
     payload: users
 })
 
-export const FetchUsersError = (error: string): FetchChatsErrorAction => ({
+export const FetchUsersError = (error: string): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS_ERROR,
     payload: error
 })

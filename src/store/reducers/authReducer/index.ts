@@ -9,22 +9,22 @@ interface AuthState extends ProfileDataType {
 }
 
 enum AuthActionTypes {
-    FETCH_AUTH_USER_DATA = 'messenger/auth/FETCH_AUTH_USER_DATA',
-    FETCH_AUTH_USER_DATA_SUCCESS = 'messenger/auth/FETCH_AUTH_USER_DATA_SUCCESS',
-    FETCH_AUTH_USER_DATA_ERROR = 'messenger/auth/FETCH_AUTH_USER_DATA_ERROR',
-    GET_CAPTCHA_URL_SUCCESS = 'messenger/auth/GET_CAPTCHA_URL_SUCCESS'
+    FETCH_AUTH_USER_DATA = "messenger/auth/FETCH_AUTH_USER_DATA",
+    FETCH_AUTH_USER_DATA_SUCCESS = "messenger/auth/FETCH_AUTH_USER_DATA_SUCCESS",
+    FETCH_AUTH_USER_DATA_ERROR = "messenger/auth/FETCH_AUTH_USER_DATA_ERROR",
+    GET_CAPTCHA_URL_SUCCESS = "messenger/auth/GET_CAPTCHA_URL_SUCCESS"
 }
 
 interface FetchAuthUserDataAction {
     type: typeof AuthActionTypes.FETCH_AUTH_USER_DATA,
 }
 
-interface FetchAuthUserDataASuccessction {
+interface FetchAuthUserDataSuccessAction {
     type: typeof AuthActionTypes.FETCH_AUTH_USER_DATA_SUCCESS,
     payload: ProfileDataType
 }
 
-interface FetchAuthUserDataAErrorAction {
+interface FetchAuthUserDataErrorAction {
     type: typeof AuthActionTypes.FETCH_AUTH_USER_DATA_ERROR,
     payload: string
 }
@@ -37,8 +37,8 @@ interface GetCaptchaUrlSuccessActionType {
 }
 
 type AuthAction = FetchAuthUserDataAction
-    | FetchAuthUserDataASuccessction
-    | FetchAuthUserDataAErrorAction
+    | FetchAuthUserDataSuccessAction
+    | FetchAuthUserDataErrorAction
     | GetCaptchaUrlSuccessActionType
 
 const initialState: AuthState = {
@@ -78,16 +78,16 @@ export const authReducer = (state = initialState, action: AuthAction): AuthState
     }
 }
 
-export const FetchAuthUserProfile = (): FetchAuthUserDataAction => ({
+export const FetchAuthUserProfile = (): AuthAction => ({
     type: AuthActionTypes.FETCH_AUTH_USER_DATA
 })
 
-export const FetchAuthUserProfileSuccess = (profileData: ProfileDataType): FetchAuthUserDataASuccessction => ({
+export const FetchAuthUserProfileSuccess = (profileData: ProfileDataType): AuthAction => ({
     type: AuthActionTypes.FETCH_AUTH_USER_DATA_SUCCESS,
     payload: profileData
 })
 
-export const FetchAuthUserProfileError = (error: string): FetchAuthUserDataAErrorAction => ({
+export const FetchAuthUserProfileError = (error: string): AuthAction => ({
     type: AuthActionTypes.FETCH_AUTH_USER_DATA_ERROR,
     payload: error
 })
