@@ -65,16 +65,16 @@ export const userReducer = (state = initialState, action: UserAction): UserState
     }
 }
 
-export const FetchUsers = (): FetchUsersAction => ({
+export const FetchUsers = (): UserAction => ({
     type: UserActionTypes.FETCH_USERS
 })
 
-export const FetchUsersSuccess = (users: UserType[]): FetchUsersSuccessAction => ({
+export const FetchUsersSuccess = (users: UserType[]): UserAction => ({
     type: UserActionTypes.FETCH_USERS_SUCCESS,
     payload: users
 })
 
-export const FetchUsersError = (error: string): FetchUsersErrorAction => ({
+export const FetchUsersError = (error: string): UserAction => ({
     type: UserActionTypes.FETCH_USERS_ERROR,
     payload: error
 })

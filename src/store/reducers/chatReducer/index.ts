@@ -65,16 +65,16 @@ export const chatReducer = (state = initialState, action: ChatAction): ChatState
     }
 }
 
-export const FetchUsers = (): FetchChatsAction => ({
+export const FetchUsers = (): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS
 })
 
-export const FetchUsersSuccess = (users: ChatType[]): FetchChatsSuccessAction => ({
+export const FetchUsersSuccess = (users: ChatType[]): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS_SUCCESS,
     payload: users
 })
 
-export const FetchUsersError = (error: string): FetchChatsErrorAction => ({
+export const FetchUsersError = (error: string): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS_ERROR,
     payload: error
 })
