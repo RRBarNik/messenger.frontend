@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import thunk from "redux-thunk"
 import reduxLogger from "redux-logger";
-import { rootReducers, configureReducer } from "./reducers";
+import { rootReducer } from "./reducers";
 
-const configureStore = (reducers = {}, preloadedState = {}, middlewares = []) =>
+const configureStore = (preloadedState = {}, middlewares = []) =>
     createStore(
-        configureReducer(reducers),
+        rootReducer,
         preloadedState,
         compose(
             applyMiddleware(
@@ -18,4 +18,6 @@ const configureStore = (reducers = {}, preloadedState = {}, middlewares = []) =>
         )
     );
 
-export default configureStore;
+const store = configureStore();
+
+export default store;
