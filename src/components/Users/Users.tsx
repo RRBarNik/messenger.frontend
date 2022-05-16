@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './Users.module.css';
 import User from "./User/User";
-import { UserType } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersList } from "../../store/reducers/userReducer/selectors";
+import { getUsers } from "../../store/reducers/userReducer";
 
-type PropsType = {
-    users: Array<UserType>
-}
 
-let Users: React.FC<PropsType> = (
-    {
-        users,
-        ...props }) => {
+let Users: React.FC<{}> = (props) => {
+    const users = useSelector(getUsersList)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUsers(1, 10))
+    }, [])
+
     return (
         <div className={styles.container}>
             {

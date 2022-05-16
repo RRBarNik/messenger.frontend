@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersPage from './components/Users/UsersPage';
 import ChatsListContainer from './components/ChatsList/ChatsListContainer';
 import ChatContainer from './components/Chat/ChatContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
@@ -25,7 +25,7 @@ class App extends React.Component<PropsType> {
         <div className='app-wrapper-content' >
           <Switch>
             <Route path='/users'>
-              <UsersContainer />
+              <UsersPage />
             </Route>
             <Route path='/profile/:userId?'>
               <ProfileContainer />
