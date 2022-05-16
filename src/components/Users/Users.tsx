@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersList } from "../../store/reducers/userReducer/selectors";
 import { getUsers } from "../../store/reducers/userReducer";
 
-
 let Users: React.FC<{}> = (props) => {
     const users = useSelector(getUsersList)
 
