@@ -12,7 +12,7 @@ import { AppStateType } from './store/reducers';
 import { withRouter } from 'react-router';
 import { compose } from "redux";
 import { connect } from "react-redux";
-import HeaderContainer from './components/Header/HeaderContainer';
+import Header from './components/Header/Header';
 
 type PropsType = ReturnType<typeof mapStateToProps>
 
@@ -20,7 +20,7 @@ class App extends React.Component<PropsType> {
   render() {
     return (
       <div className='app-wrapper' >
-        <HeaderContainer />
+        <Header />
         <Navbar />
         <div className='app-wrapper-content' >
           <Switch>

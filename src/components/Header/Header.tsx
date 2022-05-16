@@ -4,12 +4,7 @@ import styles from './Header.module.css';
 import { Menu, MenuProps, Dropdown } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 
-type PropsType = {
-    nickname: string
-    isAuth: boolean
-}
-
-const Header = (props: PropsType) => {
+const Header: React.FC<{}> = (props) => {
     const onClick: MenuProps['onClick'] = e => {
         console.log('click ', e);
     };
@@ -25,7 +20,7 @@ const Header = (props: PropsType) => {
                         onClick={onClick}
                     >
                         <Menu.Item key="1">
-                            <NavLink to='/signout-oidc'>
+                            <NavLink to='/login'>
                                 Log out
                             </NavLink>
                         </Menu.Item>
