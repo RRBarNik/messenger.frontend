@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import UsersPage from './components/Users/UsersPage';
 import ChatsPage from './components/ChatsPage/ChatsPage';
 import ChatContainer from './components/Chat/ChatContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Auth/Login/Login';
 import Signup from './components/Auth/Signup/Signup';
@@ -28,7 +28,7 @@ class App extends React.Component<PropsType> {
               <UsersPage />
             </Route>
             <Route path='/profile/:userId?'>
-              <ProfileContainer />
+              <ProfilePage />
             </Route>
             <Route path='/chats'>
               <ChatsPage />

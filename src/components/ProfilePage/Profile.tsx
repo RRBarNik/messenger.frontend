@@ -1,17 +1,22 @@
-import React from "react";
-import { ProfileDataType } from "../../types/types";
+import React, { useEffect } from "react";
 import styles from "./Profile.module.css";
 import { Avatar, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../../store/reducers/profileReducer";
+import { getUserProfileSelector } from "../../store/reducers/profileReducer/selectors";
+import { useParams } from "react-router";
 
-type PropsType = {
-    userProfile: ProfileDataType
-}
+let Profile: React.FC<{}> = (props) => {
+    const userProfile = useSelector(getUserProfileSelector)
+    const { userId } = useParams<{ userId: string }>()
 
-let Profile: React.FC<PropsType> = (
-    {
-        userProfile,
-        ...props }) => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getUserProfile(userId))
+    }, [])
+
     return (
         <div className={styles.container}>
             <div className={styles.profileWrapper}>
