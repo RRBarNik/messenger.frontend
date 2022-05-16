@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import UsersPage from './components/Users/UsersPage';
-import ChatsListContainer from './components/ChatsList/ChatsListContainer';
+import ChatsPage from './components/ChatsPage/ChatsPage';
 import ChatContainer from './components/Chat/ChatContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
@@ -31,7 +31,7 @@ class App extends React.Component<PropsType> {
               <ProfileContainer />
             </Route>
             <Route path='/chats'>
-              <ChatsListContainer />
+              <ChatsPage />
             </Route>
             <Route path='/chat/:chatId?'>
               <ChatContainer />
