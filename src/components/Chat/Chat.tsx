@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Message from "./Message/Message";
-import { MessageType } from "../../types/types";
 import styles from "./Chat.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessagesList } from "../../store/reducers/messageReducer/selectors";
+import { getMessages } from "../../store/reducers/messageReducer";
+import { useParams } from "react-router";
 
-type PropsType = {
-    messages: Array<MessageType>
-}
+let Chat: React.FC<{}> = (props) => {
+    const messages = useSelector(getMessagesList)
+    const { chatId } = useParams<{ chatId: string }>()
 
-let Chat: React.FC<PropsType> = (
-    {
-        messages,
-        ...props }) => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getMessages(chatId))
+    }, [])
+
     return (
         <div className={styles.container}>
             <div className={styles.messages}>
