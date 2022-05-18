@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import UsersPage from './components/Users/UsersPage';
 import ChatsPage from './components/ChatsPage/ChatsPage';
-import ChatContainer from './components/Chat/ChatContainer';
+import ChatPage from './components/Chat/ChatPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Auth/Login/Login';
@@ -34,7 +34,7 @@ class App extends React.Component<PropsType> {
               <ChatsPage />
             </Route>
             <Route path='/chat/:chatId?'>
-              <ChatContainer />
+              <ChatPage />
             </Route>
             <Route path='/login'>
               <Login />
