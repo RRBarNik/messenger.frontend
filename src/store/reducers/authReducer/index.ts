@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { ProfileDataType } from "../../../types/types";
+import { IUser } from "../../../models/IUser";
+import AuthService from "../../../services/AuthService";
 
-interface AuthState extends ProfileDataType {
+interface AuthState extends IUser {
     isAuth: boolean;
     isLoading: boolean,
     error: string | null
@@ -11,8 +12,7 @@ interface AuthState extends ProfileDataType {
 enum AuthActionTypes {
     FETCH_AUTH_USER_DATA = "messenger/auth/FETCH_AUTH_USER_DATA",
     FETCH_AUTH_USER_DATA_SUCCESS = "messenger/auth/FETCH_AUTH_USER_DATA_SUCCESS",
-    FETCH_AUTH_USER_DATA_ERROR = "messenger/auth/FETCH_AUTH_USER_DATA_ERROR",
-    GET_CAPTCHA_URL_SUCCESS = "messenger/auth/GET_CAPTCHA_URL_SUCCESS"
+    FETCH_AUTH_USER_DATA_ERROR = "messenger/auth/FETCH_AUTH_USER_DATA_ERROR"
 }
 
 interface FetchAuthUserDataAction {
@@ -21,7 +21,7 @@ interface FetchAuthUserDataAction {
 
 interface FetchAuthUserDataSuccessAction {
     type: typeof AuthActionTypes.FETCH_AUTH_USER_DATA_SUCCESS,
-    payload: ProfileDataType
+    payload: IUser
 }
 
 interface FetchAuthUserDataErrorAction {
@@ -29,25 +29,15 @@ interface FetchAuthUserDataErrorAction {
     payload: string
 }
 
-interface GetCaptchaUrlSuccessActionType {
-    type: typeof AuthActionTypes.GET_CAPTCHA_URL_SUCCESS,
-    payload: {
-        captchaUrl: string
-    }
-}
-
 type AuthAction = FetchAuthUserDataAction
     | FetchAuthUserDataSuccessAction
     | FetchAuthUserDataErrorAction
-    | GetCaptchaUrlSuccessActionType
 
 const initialState: AuthState = {
     id: '',
-    nickname: '',
+    email: '',
     firstname: '',
     lastname: '',
-    role: null,
-    activeStatus: false,
     isAuth: false,
     isLoading: false,
     error: null
@@ -58,13 +48,13 @@ export const authReducer = (state = initialState, action: AuthAction): AuthState
         case AuthActionTypes.FETCH_AUTH_USER_DATA:
             return {
                 ...state,
-                isAuth: true,
                 isLoading: true,
             };
         case AuthActionTypes.FETCH_AUTH_USER_DATA_SUCCESS: {
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                isAuth: true,
             };
         }
         case AuthActionTypes.FETCH_AUTH_USER_DATA_ERROR: {
@@ -82,7 +72,7 @@ export const FetchAuthUserProfile = (): AuthAction => ({
     type: AuthActionTypes.FETCH_AUTH_USER_DATA
 })
 
-export const FetchAuthUserProfileSuccess = (profileData: ProfileDataType): AuthAction => ({
+export const FetchAuthUserProfileSuccess = (profileData: IUser): AuthAction => ({
     type: AuthActionTypes.FETCH_AUTH_USER_DATA_SUCCESS,
     payload: profileData
 })
@@ -92,11 +82,25 @@ export const FetchAuthUserProfileError = (error: string): AuthAction => ({
     payload: error
 })
 
-export const login = (login: string, password: string)
+export const login = (email: string, password: string)
     : ThunkAction<Promise<void>, AppStateType, unknown, AuthAction> => {
     return async (dispatch) => {
         dispatch(FetchAuthUserProfile());
-        /*let response = await AuthAPI.addUser(profile);
-        dispatch(FetchAuthUserProfileSuccess(response));*/
+        let response = await AuthService.login(email, password);
+        localStorage.setItem('token', response.data.accessToken);
+        //dispatch(FetchAuthUserProfileSuccess(response.data.user));
+    }
+}
+
+export const register = (email: string, 
+        password: string, 
+        firstname: string, 
+        lastname: string)
+        : ThunkAction<Promise<void>, AppStateType, unknown, AuthAction> => {
+    return async (dispatch) => {
+        dispatch(FetchAuthUserProfile());
+        let response = await AuthService.registration(email, password, firstname, lastname);
+        localStorage.setItem('token', response.data.accessToken);
+        //dispatch(FetchAuthUserProfileSuccess(response.data.user));
     }
 }

@@ -25,9 +25,6 @@ let Profile: React.FC<{}> = (props) => {
                 </span>
                 <span className={styles.profileStatus}>
                     <div>
-                        {userProfile.nickname}
-                    </div>
-                    <div>
                         {userProfile.firstname + " " + userProfile.lastname}
                     </div>
                 </span>

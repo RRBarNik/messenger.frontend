@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ProfileDataType } from '../types/types';
 
 const $api = axios.create({
     withCredentials: true,
@@ -8,7 +7,7 @@ const $api = axios.create({
 
 export const UsersAPI = {
     getUsers() {
-        return $api.get(`User`)
+        return $api.get(`Users`)
             .then(responce => {
                 return responce.data
             });
@@ -34,17 +33,5 @@ export const ChatsAPI = {
             .then(responce => {
                 return responce.data
             });
-    }
-}
-
-export const AuthAPI = {
-    addUser(profile: ProfileDataType) {
-        let nickname = profile.nickname;
-        let firstname = profile.firstname;
-        let lastname = profile.lastname;
-        return $api.post('User', { nickname, firstname, lastname })
-            .then(responce => {
-                return responce.data
-            })
     }
 }

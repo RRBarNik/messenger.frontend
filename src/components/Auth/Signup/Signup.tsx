@@ -1,35 +1,16 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { login } from '../../../store/reducers/authReducer/index';
-import { Redirect, NavLink } from "react-router-dom";
-import { AppStateType } from "../../../store/reducers";
-import { ProfileDataType } from "../../../types/types";
+import { useSelector } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import SignupForm from "./SignupForm/SignupForm";
 import styles from "../Auth.module.css";
+import { getIsAuth, getUserId } from "../../../store/reducers/authReducer/selectors";
 
-type MapStatePropsType = {
-    isAuth: boolean,
-    id: string
-}
+const Signup: React.FC<{}> = (props) => {
+    const isAuth = useSelector(getIsAuth);
+    const id = useSelector(getUserId);
 
-type MapDispatchPropsType = {
-    login: (login: string, password: string) => void
-}
-
-type PropsType = MapStatePropsType & MapDispatchPropsType;
-
-type LoginFormValuesType = {
-    login: string,
-    password: string
-}
-
-const Signup: React.FC<PropsType> = (props) => {
-    const onSubmit = (values: LoginFormValuesType) => {
-        console.log(` ${values.login}`);
-    }
-
-    if (props.isAuth) {
-        return <Redirect to={'/user/' + props.id} />
+    if (isAuth) {
+        return <Redirect to={'/user/' + id} />
     }
 
     return (
@@ -38,15 +19,10 @@ const Signup: React.FC<PropsType> = (props) => {
                 <h1 className={styles.authTitle}>
                     Sign up to Messenger
                 </h1>
-                <SignupForm submit={onSubmit} />
+                <SignupForm />
             </div>
         </div>
     )
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    isAuth: state.auth.isAuth,
-    id: state.auth.id
-})
-
-export default connect(mapStateToProps, { login })(Signup);
+export default Signup;

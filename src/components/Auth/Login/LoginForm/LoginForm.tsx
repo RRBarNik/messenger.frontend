@@ -1,24 +1,29 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { withFormik, FormikProps } from "formik";
 import styles from "../../Auth.module.css";
+import { login } from "../../../../store/reducers/authReducer";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
 
-interface Props {
-    submit: (values: LoginFormValuesType) => void;
-}
+const LoginForm: React.FC<{}> = ( props ) => { 
+    const dispatch = useDispatch();
 
-type LoginFormValuesType = {
-    login: string,
-    password: string
-}
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        onSubmit: values =>{
+            dispatch(login(values.email, values.password));
+        },
+    });
 
-const LoginForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handleSubmit, handleChange, values, handleBlur, ...props }) => {
     return (
         <Form
             className={styles.authForm}
             name='login'
             layout="vertical"
-            onFinish={handleSubmit}
+            onFinish={formik.handleSubmit}
             requiredMark={false}
             autoComplete="off"
         >
@@ -30,9 +35,9 @@ const LoginForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handleS
             >
                 <Input
                     className={styles.authInput}
-                    name="login"
-                    value={values.login}
-                    onChange={handleChange}
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -45,21 +50,19 @@ const LoginForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handleS
                 <Input.Password
                     className={styles.authInput}
                     name="password"
-                    value={values.password}
-                    onChange={handleChange}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
-            <Button className={styles.submitButton + " " + styles.textButton} type="primary" htmlType="submit">
+            <Button 
+                className={styles.submitButton + " " + styles.textButton} 
+                type="primary" htmlType="submit"
+            >
                 Submit
             </Button>
         </Form >
     )
 }
 
-export default withFormik<Props, LoginFormValuesType>({
-    mapPropsToValues: () => ({ login: "", password: "" }),
-    handleSubmit: (values, { props }) => {
-        props.submit(values);
-    }
-})(LoginForm)
+export default LoginForm;

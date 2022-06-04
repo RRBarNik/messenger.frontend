@@ -1,27 +1,37 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { withFormik, FormikProps } from "formik";
+import { useFormik } from "formik";
 import styles from "../../Auth.module.css";
+import { useDispatch } from "react-redux";
+import { register } from "../../../../store/reducers/authReducer";
 
-interface Props {
-    submit: (values: LoginFormValuesType) => void;
-}
+const SignupForm: React.FC<{}> = ( props ) => {
+    const dispatch = useDispatch();
 
-type LoginFormValuesType = {
-    login: string,
-    password: string
-    confirmPassword: string
-    firstname: string
-    lastname: string
-}
+    const formik = useFormik({
+        initialValues: {
+            firstname: '',
+            lastname: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        },
+        onSubmit: values => {
+            dispatch(register(
+                values.email,
+                values.password,
+                values.firstname,
+                values.lastname
+            ));
+        },
+    });
 
-const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handleSubmit, handleChange, values, handleBlur, ...props }) => {
     return (
         <Form
             className={styles.authForm}
             name='login'
             layout="vertical"
-            onFinish={handleSubmit}
+            onFinish={formik.handleSubmit}
             requiredMark={false}
             autoComplete="off"
         >
@@ -33,8 +43,8 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
                 <Input
                     className={styles.authInput}
                     name="firstname"
-                    value={values.firstname}
-                    onChange={handleChange}
+                    value={formik.values.firstname}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -46,8 +56,8 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
                 <Input
                     className={styles.authInput}
                     name="lastname"
-                    value={values.lastname}
-                    onChange={handleChange}
+                    value={formik.values.lastname}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -59,9 +69,9 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
             >
                 <Input
                     className={styles.authInput}
-                    name="login"
-                    value={values.login}
-                    onChange={handleChange}
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -74,8 +84,8 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
                 <Input.Password
                     className={styles.authInput}
                     name="password"
-                    value={values.password}
-                    onChange={handleChange}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -88,8 +98,8 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
                 <Input.Password
                     className={styles.authInput}
                     name="confirmPassword"
-                    value={values.confirmPassword}
-                    onChange={handleChange}
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
                 />
             </Form.Item>
 
@@ -100,16 +110,4 @@ const SignupForm: React.FC<FormikProps<LoginFormValuesType> & Props> = ({ handle
     )
 }
 
-export default withFormik<Props, LoginFormValuesType>({
-    mapPropsToValues: () => (
-        {
-            login: "",
-            password: "",
-            confirmPassword: "",
-            firstname: "",
-            lastname: ""
-        }),
-    handleSubmit: (values, { props }) => {
-        props.submit(values);
-    }
-})(SignupForm)
+export default SignupForm;

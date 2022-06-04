@@ -1,12 +1,12 @@
 import React from "react";
 import styles from './User.module.css';
 import { NavLink } from 'react-router-dom';
-import { UserType } from "../../../types/types";
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { IUser } from "../../../models/IUser";
 
 type PropsType = {
-    user: UserType,
+    user: IUser,
 }
 
 let User: React.FC<PropsType> = ({ user }) => {
@@ -18,7 +18,7 @@ let User: React.FC<PropsType> = ({ user }) => {
             <span className={styles.userInfo}>
                 <NavLink to={'/profile/' + user.id}>
                     <div>
-                        {user.nickname}
+                        {user.firstname}
                     </div>
                 </NavLink>
                 <div>
