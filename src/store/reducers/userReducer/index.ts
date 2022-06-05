@@ -1,10 +1,10 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { UserType } from "../../../types/types"
 import { UsersAPI } from "../../../api/api";
+import { IUser } from "../../../models/IUser";
 
 export interface UserState {
-    users: Array<UserType>;
+    users: Array<IUser>;
     isLoading: boolean;
     error: null | string;
 }
@@ -21,7 +21,7 @@ interface FetchUsersAction {
 
 interface FetchUsersSuccessAction {
     type: typeof UserActionTypes.FETCH_USERS_SUCCESS;
-    payload: Array<UserType>;
+    payload: Array<IUser>;
 }
 
 interface FetchUsersErrorAction {
@@ -69,7 +69,7 @@ export const FetchUsers = (): UserAction => ({
     type: UserActionTypes.FETCH_USERS
 })
 
-export const FetchUsersSuccess = (users: UserType[]): UserAction => ({
+export const FetchUsersSuccess = (users: IUser[]): UserAction => ({
     type: UserActionTypes.FETCH_USERS_SUCCESS,
     payload: users
 })

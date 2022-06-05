@@ -1,35 +1,16 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { login } from '../../../store/reducers/authReducer/index';
 import { Redirect, NavLink } from "react-router-dom";
-import { AppStateType } from "../../../store/reducers";
-import { ProfileDataType } from "../../../types/types";
 import LoginForm from "./LoginForm/LoginForm";
 import styles from "../Auth.module.css";
+import { useSelector } from "react-redux";
+import { getIsAuth, getAuthUserId } from "../../../store/reducers/authReducer/selectors";
 
-type MapStatePropsType = {
-    isAuth: boolean,
-    id: string
-}
+const Login: React.FC<{}> = (props) => {
+    const isAuth = useSelector(getIsAuth);
+    const id = useSelector(getAuthUserId);
 
-type MapDispatchPropsType = {
-    login: (login: string, password: string) => void
-}
-
-type PropsType = MapStatePropsType & MapDispatchPropsType;
-
-type LoginFormValuesType = {
-    login: string,
-    password: string
-}
-
-const Login: React.FC<PropsType> = (props) => {
-    const onSubmit = (values: LoginFormValuesType) => {
-        props.login(values.login, values.password);
-    }
-
-    if (props.isAuth) {
-        return <Redirect to={'/user/' + props.id} />
+    if (isAuth) {
+        return <Redirect to={'/profile/' + id} />
     }
 
     return (
@@ -38,7 +19,7 @@ const Login: React.FC<PropsType> = (props) => {
                 <h1 className={styles.authTitle}>
                     Sign in to Messenger
                 </h1>
-                <LoginForm submit={onSubmit} />
+                <LoginForm />
                 <div className={styles.subText + " " + styles.smallText}>
                     New to Messenger?{" "}
                     <NavLink className={styles.navlink} to={'/signup'}>
@@ -50,9 +31,4 @@ const Login: React.FC<PropsType> = (props) => {
     )
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    isAuth: state.auth.isAuth,
-    id: state.auth.id
-})
-
-export default connect(mapStateToProps, { login })(Login);
+export default Login;

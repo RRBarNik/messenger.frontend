@@ -9,14 +9,3 @@ export type MessageType = {
     body: string,
     dateOfCreation: string,
 }
-export type UserType = {
-    id: string
-    nickname: string
-    activeStatus: boolean
-}
-
-export interface ProfileDataType extends UserType {
-    firstname: string | null
-    lastname: string | null
-    role: string | null
-}

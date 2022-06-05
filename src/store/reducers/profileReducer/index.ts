@@ -1,10 +1,11 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
 import { UsersAPI } from "../../../api/api";
-import { ProfileDataType } from "../../../types/types";
+import { IUser } from "../../../models/IUser";
+import UserService from "../../../services/UserService";
 
 interface ProfileState {
-    profileData: ProfileDataType,
+    profileData: IUser,
     isLoading: boolean,
     error: string | null
 }
@@ -22,7 +23,7 @@ interface FetchUserProfileAction {
 
 interface FetchUserProfileSuccessAction {
     type: typeof ProfileActionTypes.FETCH_USER_PROFILE_SUCCESS;
-    payload: ProfileDataType;
+    payload: IUser;
 }
 
 interface FetchUserProfileErrorAction {
@@ -44,11 +45,9 @@ type ProfileAction =
 const initialState: ProfileState = {
     profileData: {
         id: '',
-        nickname: '',
-        firstname: null,
-        lastname: null,
-        role: null,
-        activeStatus: false,
+        email: '',
+        firstname: '',
+        lastname: '',
     },
     isLoading: false,
     error: null
@@ -66,10 +65,9 @@ export const profileReducer = (state = initialState, action: ProfileAction): Pro
                 profileData: {
                     ...state.profileData,
                     id: action.payload.id,
-                    nickname: action.payload.nickname,
+                    email: action.payload.email,
                     firstname: action.payload.firstname,
                     lastname: action.payload.lastname,
-                    role: action.payload.role
                 },
                 isLoading: false,
                 error: null
@@ -80,14 +78,6 @@ export const profileReducer = (state = initialState, action: ProfileAction): Pro
                 isLoading: false,
                 error: action.payload
             }
-        case ProfileActionTypes.SET_STATUS:
-            return {
-                ...state,
-                profileData: {
-                    ...state.profileData,
-                    activeStatus: action.payload
-                }
-            }
         default:
             return state
     }
@@ -97,7 +87,7 @@ export const FetchUserProfile = (): ProfileAction => ({
     type: ProfileActionTypes.FETCH_USER_PROFILE
 })
 
-export const FetchUserProfileSuccess = (profileData: ProfileDataType): ProfileAction => ({
+export const FetchUserProfileSuccess = (profileData: IUser): ProfileAction => ({
     type: ProfileActionTypes.FETCH_USER_PROFILE_SUCCESS,
     payload: profileData
 })
@@ -107,11 +97,11 @@ export const FetchUserProfileError = (error: string): ProfileAction => ({
     payload: error
 })
 
-export const getUserProfile = (userId: string | undefined)
+export const getUserProfile = (userId: string)
     : ThunkAction<Promise<void>, AppStateType, unknown, ProfileAction> => {
     return async (dispatch) => {
         dispatch(FetchUserProfile());
-        let response = await UsersAPI.getProfile(userId);
-        dispatch(FetchUserProfileSuccess(response));
+        let response = await UserService.fetchUserProfile(userId);
+        dispatch(FetchUserProfileSuccess(response.data));
     }
 }

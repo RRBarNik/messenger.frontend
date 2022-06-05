@@ -6,15 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../store/reducers/profileReducer";
 import { getUserProfileSelector } from "../../store/reducers/profileReducer/selectors";
 import { useParams } from "react-router";
+import { getAuthUserId } from "../../store/reducers/authReducer/selectors";
 
 let Profile: React.FC<{}> = (props) => {
     const userProfile = useSelector(getUserProfileSelector)
+    const authUserId = useSelector(getAuthUserId)
     const { userId } = useParams<{ userId: string }>()
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getUserProfile(userId))
+        if(authUserId !== userId){
+            dispatch(getUserProfile(userId))
+        }
     }, [])
 
     return (
@@ -24,9 +28,6 @@ let Profile: React.FC<{}> = (props) => {
                     <Avatar shape="square" size={128} src="https://sun9-66.userapi.com/sun9-86/impf/rpXLmTBXm3N94AYAq_z9v0D-EhZrzdeuf6m_ng/tQw5vaDEWjc.jpg?size=604x604&quality=96&sign=c7a3cc990e65e22675e4173857b367eb&type=album" icon={<UserOutlined />} />
                 </span>
                 <span className={styles.profileStatus}>
-                    <div>
-                        {userProfile.nickname}
-                    </div>
                     <div>
                         {userProfile.firstname + " " + userProfile.lastname}
                     </div>
