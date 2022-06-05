@@ -88,7 +88,7 @@ export const login = (email: string, password: string)
         dispatch(FetchAuthUserProfile());
         let response = await AuthService.login(email, password);
         localStorage.setItem('token', response.data.accessToken);
-        //dispatch(FetchAuthUserProfileSuccess(response.data.user));
+        dispatch(FetchAuthUserProfileSuccess(response.data.user));
     }
 }
 
@@ -101,6 +101,6 @@ export const register = (email: string,
         dispatch(FetchAuthUserProfile());
         let response = await AuthService.registration(email, password, firstname, lastname);
         localStorage.setItem('token', response.data.accessToken);
-        //dispatch(FetchAuthUserProfileSuccess(response.data.user));
+        dispatch(FetchAuthUserProfileSuccess(response.data.user));
     }
 }

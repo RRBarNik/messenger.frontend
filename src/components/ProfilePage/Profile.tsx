@@ -6,15 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../store/reducers/profileReducer";
 import { getUserProfileSelector } from "../../store/reducers/profileReducer/selectors";
 import { useParams } from "react-router";
+import { getAuthUserId } from "../../store/reducers/authReducer/selectors";
 
 let Profile: React.FC<{}> = (props) => {
     const userProfile = useSelector(getUserProfileSelector)
+    const authUserId = useSelector(getAuthUserId)
     const { userId } = useParams<{ userId: string }>()
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getUserProfile(userId))
+        if(authUserId !== userId){
+            dispatch(getUserProfile(userId))
+        }
     }, [])
 
     return (

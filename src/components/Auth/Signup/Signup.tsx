@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import SignupForm from "./SignupForm/SignupForm";
 import styles from "../Auth.module.css";
-import { getIsAuth, getUserId } from "../../../store/reducers/authReducer/selectors";
+import { getIsAuth, getAuthUserId } from "../../../store/reducers/authReducer/selectors";
 
 const Signup: React.FC<{}> = (props) => {
     const isAuth = useSelector(getIsAuth);
-    const id = useSelector(getUserId);
+    const id = useSelector(getAuthUserId);
 
     if (isAuth) {
-        return <Redirect to={'/user/' + id} />
+        return <Redirect to={'/profile/' + id} />
     }
 
     return (

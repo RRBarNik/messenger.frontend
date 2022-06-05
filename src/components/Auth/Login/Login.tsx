@@ -3,14 +3,14 @@ import { Redirect, NavLink } from "react-router-dom";
 import LoginForm from "./LoginForm/LoginForm";
 import styles from "../Auth.module.css";
 import { useSelector } from "react-redux";
-import { getIsAuth, getUserId } from "../../../store/reducers/authReducer/selectors";
+import { getIsAuth, getAuthUserId } from "../../../store/reducers/authReducer/selectors";
 
 const Login: React.FC<{}> = (props) => {
     const isAuth = useSelector(getIsAuth);
-    const id = useSelector(getUserId);
+    const id = useSelector(getAuthUserId);
 
     if (isAuth) {
-        return <Redirect to={'/user/' + id} />
+        return <Redirect to={'/profile/' + id} />
     }
 
     return (

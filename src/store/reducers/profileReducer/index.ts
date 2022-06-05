@@ -2,6 +2,7 @@ import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
 import { UsersAPI } from "../../../api/api";
 import { IUser } from "../../../models/IUser";
+import UserService from "../../../services/UserService";
 
 interface ProfileState {
     profileData: IUser,
@@ -96,11 +97,11 @@ export const FetchUserProfileError = (error: string): ProfileAction => ({
     payload: error
 })
 
-export const getUserProfile = (userId: string | undefined)
+export const getUserProfile = (userId: string)
     : ThunkAction<Promise<void>, AppStateType, unknown, ProfileAction> => {
     return async (dispatch) => {
         dispatch(FetchUserProfile());
-        let response = await UsersAPI.getProfile(userId);
-        dispatch(FetchUserProfileSuccess(response));
+        let response = await UserService.fetchUserProfile(userId);
+        dispatch(FetchUserProfileSuccess(response.data));
     }
 }

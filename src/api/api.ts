@@ -12,13 +12,6 @@ export const UsersAPI = {
                 return responce.data
             });
     },
-
-    getProfile(userId: string | undefined) {
-        return $api.get(`User/${userId}`)
-            .then(responce => {
-                return responce.data
-            });
-    }
 }
 
 export const ChatsAPI = {
