@@ -13,40 +13,42 @@ import { withRouter } from 'react-router';
 import { compose } from "redux";
 import { connect } from "react-redux";
 import Header from './components/Header/Header';
+import PrivateRoute from './components/common/PrivateRoute/PrivateRoute';
+
+const MessengerPage : React.FC<{}> = ()=>{
+  return(
+    <div className='app-wrapper'>
+      <Header />
+        <Navbar />
+        <div className='app-wrapper-content' >
+          <Switch>
+            <PrivateRoute path='/users' component={UsersPage} />
+            <PrivateRoute path='/profile/:userId?' component={ProfilePage} />
+            <PrivateRoute path='/chats' component={ChatsPage} />
+            <PrivateRoute path='/chat/:chatId?' component={ChatPage} />
+          </Switch>
+        </div>
+    </div>
+  )
+}
 
 type PropsType = ReturnType<typeof mapStateToProps>
 
 class App extends React.Component<PropsType> {
   render() {
     return (
-      <div className='app-wrapper' >
-        <Header />
-        <Navbar />
-        <div className='app-wrapper-content' >
-          <Switch>
-            <Route path='/users'>
-              <UsersPage />
-            </Route>
-            <Route path='/profile/:userId?'>
-              <ProfilePage />
-            </Route>
-            <Route path='/chats'>
-              <ChatsPage />
-            </Route>
-            <Route path='/chat/:chatId?'>
-              <ChatPage />
-            </Route>
-            <Route path='/login'>
+      <div>
+        <Switch>
+          <Route path='/login'>
               <Login />
             </Route>
             <Route path='/signup'>
               <Signup />
             </Route>
-          </Switch>
-        </div>
+            <PrivateRoute path='/' component={MessengerPage} />
+        </Switch>
       </div>
     )
-
   }
 }
 
