@@ -1,10 +1,10 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { ChatType } from "../../../types/types"
-import { ChatsAPI } from "../../../api/api";
+import { IChat } from "../../../models/IChat";
+import ChatService from "../../../services/ChatService";
 
 export interface ChatState {
-    chats: Array<ChatType>,
+    chats: Array<IChat>,
     isLoading: boolean,
     error: string | null
 }
@@ -21,7 +21,7 @@ interface FetchChatsAction {
 
 interface FetchChatsSuccessAction {
     type: typeof ChatActionTypes.FETCH_CHATS_SUCCESS;
-    payload: ChatType[];
+    payload: IChat[];
 }
 
 interface FetchChatsErrorAction {
@@ -69,7 +69,7 @@ export const FetchUsers = (): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS
 })
 
-export const FetchUsersSuccess = (users: ChatType[]): ChatAction => ({
+export const FetchUsersSuccess = (users: IChat[]): ChatAction => ({
     type: ChatActionTypes.FETCH_CHATS_SUCCESS,
     payload: users
 })
@@ -83,7 +83,7 @@ export const getChats = ()
     : ThunkAction<Promise<void>, AppStateType, unknown, ChatAction> => {
     return async (dispatch) => {
         dispatch(FetchUsers());
-        let response = await ChatsAPI.getChats();
-        dispatch(FetchUsersSuccess(response.chats));
+        let response = await ChatService.fetchChats();
+        dispatch(FetchUsersSuccess(response.data));
     }
 }

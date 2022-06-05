@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { UsersAPI } from "../../../api/api";
 import { IUser } from "../../../models/IUser";
+import UserService from "../../../services/UserService";
 
 export interface UserState {
     users: Array<IUser>;
@@ -83,7 +83,7 @@ export const getUsers = (page: number, pageSize: number)
     : ThunkAction<Promise<void>, AppStateType, unknown, UserAction> => {
     return async (dispatch) => {
         dispatch(FetchUsers());
-        let response = await UsersAPI.getUsers();
-        dispatch(FetchUsersSuccess(response.users));
+        let response = await UserService.fetchUsers();
+        dispatch(FetchUsersSuccess(response.data));
     }
 }

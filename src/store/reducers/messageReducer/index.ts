@@ -1,10 +1,10 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { MessageType } from "../../../types/types";
-import { ChatsAPI } from "../../../api/api";
+import { IMessage } from "../../../models/IMessage";
+import ChatService from "../../../services/ChatService";
 
 interface MessageState {
-    messages: Array<MessageType>,
+    messages: Array<IMessage>,
     chatId: string | undefined,
     isLoading: boolean,
     error: string | null
@@ -23,7 +23,7 @@ interface FetchMessagesAction {
 interface FetchMessagesSuccessAction {
     type: typeof MessageActionTypes.FETCH_MESSAGES_SUCCESS;
     payload: {
-        messages: MessageType[],
+        messages: IMessage[],
         chatId: string | undefined
     };
 }
@@ -77,7 +77,7 @@ export const FetchMessages = (): MessageAction => ({
     type: MessageActionTypes.FETCH_MESSAGES
 })
 
-export const FetchMessagesSuccess = (messages: MessageType[], chatId: string | undefined): MessageAction => ({
+export const FetchMessagesSuccess = (messages: IMessage[], chatId: string | undefined): MessageAction => ({
     type: MessageActionTypes.FETCH_MESSAGES_SUCCESS,
     payload: {
         messages,
@@ -94,7 +94,7 @@ export const getMessages = (chatId: string)
     : ThunkAction<Promise<void>, AppStateType, unknown, MessageAction> => {
     return async (dispatch) => {
         dispatch(FetchMessages());
-        let response = await ChatsAPI.getMessages(chatId);
-        dispatch(FetchMessagesSuccess(response.messages, chatId));
+        let response = await ChatService.fetchChatMessages(chatId);
+        dispatch(FetchMessagesSuccess(response.data, chatId));
     }
 }

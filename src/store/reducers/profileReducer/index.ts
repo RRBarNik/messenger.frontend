@@ -1,6 +1,5 @@
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "..";
-import { UsersAPI } from "../../../api/api";
 import { IUser } from "../../../models/IUser";
 import UserService from "../../../services/UserService";
 
